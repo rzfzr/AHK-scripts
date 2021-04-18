@@ -5,12 +5,9 @@ SetWorkingDir, %A_ScriptDir%
 ; Globals
 DesktopCount = 2 ; Windows starts with 2 desktops at boot
 CurrentDesktop = 1 ; Desktop count is 1-indexed (Microsoft numbers them this way)
-;
-; This function examines the registry to build an accurate list of the current virtual desktops and which one we're currently on.
-; Current desktop UUID appears to be in HKEY_CURRENT_USER\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\SessionInfo\1\VirtualDesktops
-; List of desktops appears to be in HKEY_CURRENT_USER\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\VirtualDesktops
-;
-mapDesktopsFromRegistry() {
+
+mapDesktopsFromRegistry()
+{
     global CurrentDesktop, DesktopCount
     ; Get the current desktop UUID. Length should be 32 always, but there's no guarantee this couldn't change in a later Windows release so we check.
     IdLength := 32
@@ -27,8 +24,7 @@ mapDesktopsFromRegistry() {
         DesktopListLength := StrLen(DesktopList)
         ; Figure out how many virtual desktops there are
         DesktopCount := DesktopListLength / IdLength
-    }
-    else {
+    } else {
         DesktopCount := 1
     }
     ; Parse the REG_DATA string that stores the array of UUID's for virtual desktops in the registry.
@@ -81,13 +77,13 @@ switchDesktopByNumber(targetDesktop)
         return
     }
     ; Go right until we reach the desktop we want
-    while(CurrentDesktop < targetDesktop) {
+    while (CurrentDesktop < targetDesktop) {
         Send ^#{Right}
         CurrentDesktop++
         OutputDebug, [right] target: %targetDesktop% current: %CurrentDesktop%
     }
     ; Go left until we reach the desktop we want
-    while(CurrentDesktop > targetDesktop) {
+    while (CurrentDesktop > targetDesktop) {
         Send ^#{Left}
         CurrentDesktop--
         OutputDebug, [left] target: %targetDesktop% current: %CurrentDesktop%
@@ -119,8 +115,6 @@ deleteVirtualDesktop()
 SetKeyDelay, 75
 mapDesktopsFromRegistry()
 OutputDebug, [loading] desktops: %DesktopCount% current: %CurrentDesktop%
-; User config!
-; This section binds the key combo to the switch/create/delete actions
 LWin & f1::switchDesktopByNumber(1)
 LWin & f2::switchDesktopByNumber(2)
 LWin & f3::switchDesktopByNumber(3)
@@ -130,52 +124,8 @@ LWin & f6::switchDesktopByNumber(6)
 LWin & f7::switchDesktopByNumber(7)
 LWin & f8::switchDesktopByNumber(8)
 LWin & f9::switchDesktopByNumber(9)
-;CapsLock & 1::switchDesktopByNumber(1)
-;CapsLock & 2::switchDesktopByNumber(2)
-;CapsLock & 3::switchDesktopByNumber(3)
-;CapsLock & 4::switchDesktopByNumber(4)
-;CapsLock & 5::switchDesktopByNumber(5)
-;CapsLock & 6::switchDesktopByNumber(6)
-;CapsLock & 7::switchDesktopByNumber(7)
-;CapsLock & 8::switchDesktopByNumber(8)
-;CapsLock & 9::switchDesktopByNumber(9)
-;CapsLock & n::switchDesktopByNumber(CurrentDesktop + 1)
-;CapsLock & p::switchDesktopByNumber(CurrentDesktop - 1)
-;CapsLock & s::switchDesktopByNumber(CurrentDesktop + 1)
-;CapsLock & a::switchDesktopByNumber(CurrentDesktop - 1)
-;CapsLock & c::createVirtualDesktop()
-;CapsLock & d::deleteVirtualDesktop()
-; Alternate keys for this config. Adding these because DragonFly (python) doesn't send CapsLock correctly.
-;^!1::switchDesktopByNumber(1)
-;^!2::switchDesktopByNumber(2)
-;^!3::switchDesktopByNumber(3)
-;^!4::switchDesktopByNumber(4)
-;^!5::switchDesktopByNumber(5)
-;^!6::switchDesktopByNumber(6)
-;^!7::switchDesktopByNumber(7)
-;^!8::switchDesktopByNumber(8)
-;^!9::switchDesktopByNumber(9)
-;^!n::switchDesktopByNumber(CurrentDesktop + 1)
-;^!p::switchDesktopByNumber(CurrentDesktop - 1)
-;^!s::switchDesktopByNumber(CurrentDesktop + 1)
-;^!a::switchDesktopByNumber(CurrentDesktop - 1)
-;^!c::createVirtualDesktop()
-;^!d::deleteVirtualDesktop()
 
-; RAlt::return 
-
-; #If GetKeyState("RAlt", "P")
-
-; g::PgUp
-; r::PgDn
-; h::Left
-; c::Up
-; t::Down
-; n::Right
-
-; #iF
-
-; copy and paste 
+; copy and paste
 ; <!q::
 ;     Send ^x
 ; return
@@ -189,104 +139,31 @@ LWin & f9::switchDesktopByNumber(9)
 ; return
 
 ; page up and down
->!g::
-    Send {PgUp}
-Return
->!r::
-    Send {PgDn}
-Return
+>!g::Send {PgUp} ; Page Up
+>!r::Send {PgDn} ; Page Down
 
 ; only left alt
->!h::
-    Send {Left}
-Return
->!c::
-    Send {Up}
-Return
->!t::
-    Send {Down}
-Return
->!n::
-    Send {Right}
-Return
-
+>!h::Send {Left} ; Arrow Left
+>!c::Send {Up} ; Arrow Up
+>!t::Send {Down} ; Arrow Down
+>!n::Send {Right} ; Arrow Right
 ; ctrl
-
-^>!h::
-    Send ^{Left}
-Return
-^>!c::
-    Send ^{Up}
-Return
-^>!t::
-    Send ^{Down}
-Return
-^>!n::
-    Send ^{Right}
-Return
+^>!h::Send ^{Left} ; Ctrl Arrow Left
+^>!c::Send ^{Up} ; Ctrl Arrow Up
+^>!t::Send ^{Down} ; Ctrl Arrow Down
+^>!n::Send ^{Right} ; Ctrl Arrow Right
 ; ctrl+shift
-
-+^>!h::
-    Send +^{Left}
-Return
-+^>!c::
-    Send +^{Up}
-Return
-+^>!t::
-    Send +^{Down}
-Return
-+^>!n::
-    Send +^{Right}
-Return
-
++^>!h::Send +^{Left} ; Ctrl+Shift Arrow Left
+    +^>!c::Send +^{Up} ; Ctrl+Shift Arrow Up
++^>!t::Send +^{Down} ; Ctrl+Shift Arrow Down
+    +^>!n::Send +^{Right} ; Ctrl+Shift Arrow Right
 ; shift
-
-+>!h::
-    Send +{Left}
-Return
-+>!c::
-    Send +{Up}
-Return
-+>!t::
-    Send +{Down}
-Return
-+>!n::
-    Send +{Right}
-Return
-
++>!h::Send +{Left} ; Shift Arrow Left
+    +>!c::Send +{Up} ; Shift Arrow Up
++>!t::Send +{Down} ; Shift Arrow Down
+    +>!n::Send +{Right} ; Shift Arrow Right
 ; both alts
-
-<!>!h::
-    Send !{Left}
-Return
-<!>!c::
-    Send !{Up}
-Return
-<!>!t::
-    Send !{Down}
-Return
-<!>!n::
-    Send !{Right}
-Return
-
-
-
-
-; LAlt::
-;     {
-;         KeyWait, {Alt}
-;         KeyWait, {LAlt}, D T.3
-;         If (!ErrorLevel)
-;         {
-;             goto, sub
-;         }
-;     }
-; return
-
-; sub:
-;     {
-;         msgbox, It worked!
-;     }
-; return
-
-
+<!>!h::Send !{Left} ; Alt Arrow Left
+<!>!c::Send !{Up} ; Alt Arrow Up
+<!>!t::Send !{Down} ; Alt Arrow Down
+<!>!n::Send !{Right} ; Alt Arrow Right
