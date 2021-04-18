@@ -38,11 +38,6 @@ r::
     Return     
 }
 
-rafael 
-rafael
-arfael
-
-
 ;=============
 check_keyboard()
 {
@@ -53,7 +48,8 @@ check_keyboard()
     	if (A_TickCount > t)   ;to avoid an infinite loop
     	    break
     } 
-	return InStr( _KEYBOARD_, "HID#{00001124-0000-1000-8000-00805f9b34fb}_VID&0002046d_PID&b342&Col01#9&21d89006&2&0000#{884b96c3-56ef-11d1-bc8c-00a0c91405dd}")
+	; return InStr( _KEYBOARD_, "HID#{00001124-0000-1000-8000-00805f9b34fb}_VID&0002046d_PID&b342&Col01#9&28902c1e&1&0000#{884b96c3-56ef-11d1-bc8c-00a0c91405dd}")
+	return InStr( _KEYBOARD_, "HID#VID_04B4&PID_0101&MI_00#8&22b77031&0&0000#{884b96c3-56ef-11d1-bc8c-00a0c91405dd}")
 } 
 
 

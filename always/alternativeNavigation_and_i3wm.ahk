@@ -176,17 +176,17 @@ LWin & f9::switchDesktopByNumber(9)
 ; #iF
 
 ; copy and paste 
-<!q::
-    Send ^x
-return
+; <!q::
+;     Send ^x
+; return
 
-<!j::
-    Send ^c
-return
+; <!j::
+;     Send ^c
+; return
 
-<!k::
-    Send ^v
-return
+; <!k::
+;     Send ^v
+; return
 
 ; page up and down
 >!g::
@@ -269,6 +269,9 @@ Return
     Send !{Right}
 Return
 
+
+
+
 ; LAlt::
 ;     {
 ;         KeyWait, {Alt}
@@ -285,3 +288,5 @@ Return
 ;         msgbox, It worked!
 ;     }
 ; return
+
+

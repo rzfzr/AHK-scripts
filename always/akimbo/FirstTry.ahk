@@ -29,13 +29,15 @@ ExitApp
 c::
 {
     check_keyboard() 
-    if (InStr( _KEYBOARD_, "HID#{00001124-0000-1000-8000-00805f9b34fb}_VID&0002046d_PID&b342&Col01#9&21d89006&2&0000#{884b96c3-56ef-11d1-bc8c-00a0c91405dd}") )
-        s := "L{shift up}ogitech_{shift up}c "   ;There seems to be a bug. After a capital letter we have to force a {Shift UP}
-    else
-        s := "O{shift up}ther_{shift up}c "
-    Suspend on    ; for avoid the hotkey
-    SendInput %s%
-    Suspend off
+	if (InStr( _KEYBOARD_, "HID#VID_04B4&PID_0101&MI_00#8&22b77031&0&0000#{884b96c3-56ef-11d1-bc8c-00a0c91405dd}")){
+
+        Suspend on    ; for avoid the hotkey
+        s := "L{shift up}ogitech_{shift up}c "
+        Suspend off
+    }
+    else{
+        SendInput c
+    }
     Return     
 }
 
