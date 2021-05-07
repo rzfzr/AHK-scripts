@@ -23,11 +23,12 @@ F2::
 Return
 
 F3::
-    send, Ethnography ;research sociology of meaning through field observation
+    send, Action Research ;attempt to solve real-world problems
     send, {Enter}
 Return
 
 F4::
-    send, Action Research ;attempt to solve real-world problems
+    send, Ethnography ;research sociology of meaning through field observation
     send, {Enter}
 Return
+
