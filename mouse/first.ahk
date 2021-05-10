@@ -20,12 +20,12 @@ fast = 3
 >!<+a::MouseMove, (Offset*fast * -1), 0, 0, R
 >!<+e::MouseMove, Offset*fast, 0, 0, R
 
+>!Tab:: click WheelUp 
+>!CapsLock:: click WheelDown
 
 >!.::click right
 >!<+'::click m
 ~>!'::Send, {Click} 
-
-; ~>!LButton:: click left return
 
 ;This allows to press and hold the left mouse button instead of just clicking it once. Needed for drag and drop operations.
 ;snippet by x79animal at https://autohotkey.com/board/topic/59665-key-press-and-hold-emulates-mouse-click-and-hold-win7/
