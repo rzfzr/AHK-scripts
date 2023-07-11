@@ -5,7 +5,7 @@ AHK is windows only
 
 I use DVORAK, you have to adapt some of these for QWERTY
 
-I have shourctuts in my startup folder to some of these
+I have shortcuts in my startup folder to some of these
 
 AHK download: https://www.autohotkey.com/
 
