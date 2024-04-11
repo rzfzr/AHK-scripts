@@ -1,6 +1,6 @@
 #Requires AutoHotkey v1+
 #SingleInstance force
-#Include C:\Users\capit\Desktop\GitGud\AHK-scripts\Class_Monitor-master\src\Class_Monitor.ahk
+#Include %A_ScriptDir%\..\Class_Monitor-master\src\Class_Monitor.ahk
 
 highLevel := 129
 lowLevel := 1
